@@ -7,8 +7,7 @@ extern crate cortex_m_rt as rt;
 extern crate panic_semihosting;
 extern crate stm32f103xx_hal as hal;
 extern crate cortex_m_semihosting as sh;
-
-pub mod bmp280;
+extern crate bme280;
 
 use rt::ExceptionFrame;
 use hal::prelude::*;
@@ -43,7 +42,7 @@ fn main() -> ! {
         &mut rcc.apb1,
     );
     let i2c = hal::i2c::blocking_i2c(i2c, clocks, 100, 100, 100, 100);
-    let mut bme280 = bmp280::BME280::new_primary(i2c, delay);
+    let mut bme280 = bme280::BME280::new_primary(i2c, delay);
     bme280.init().unwrap();
 
     loop {
